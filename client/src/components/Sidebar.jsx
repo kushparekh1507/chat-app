@@ -29,6 +29,7 @@ const Sidebar = () => {
       socketConnection.emit('sidebar', user?._id)
 
       socketConnection.on('conversation', (data) => {
+        console.log("Sidebar data:", data);
         const conversationUseData = data.map((conversationUser, index) => {
           if (conversationUser?.sender?._id === conversationUser?.receiver?._id) {
             return ({
@@ -53,7 +54,7 @@ const Sidebar = () => {
         setLoading(false);
       })
     }
-  }, [user, socketConnection])
+  }, [socketConnection, user])
   // console.log(allUser);
   console.log(loading);
 
