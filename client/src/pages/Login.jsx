@@ -2,9 +2,6 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice';
-import Context from '../context';
 
 const Login = () => {
   const [data, setData] = useState({
@@ -12,7 +9,6 @@ const Login = () => {
     password: ""
   })
   const navigate = useNavigate();
-  const { fetchUser } = useContext(Context);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +28,6 @@ const Login = () => {
 
     await axios.post("/login", data)
       .then((res) => {
-        fetchUser();
         localStorage.setItem("token", res?.data)
         toast.success("Successfully Logged In");
         navigate("/");

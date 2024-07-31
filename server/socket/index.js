@@ -111,7 +111,7 @@ io.on('connection', async (socket) => {
 
   //sidebar 
   socket.on('sidebar', async (currentUser) => {
-
+    console.log("Sidebar:", currentUser);
     //Current User Conversations
     const conversationSidebar = await getConversation(currentUser);
     socket.emit('conversation', conversationSidebar);
@@ -120,8 +120,8 @@ io.on('connection', async (socket) => {
   socket.on('seen', async (msgByUserId) => {
     let conversation = await Conversation.findOne({
       "$or": [
-        { sender: user?._id }, { receiver: msgByUserId },
-        { sender: msgByUserId }, { receiver: user?._id }
+        { sender: user?._id, receiver: msgByUserId },
+        { sender: msgByUserId, receiver: user?._id }
       ]
     })
 
